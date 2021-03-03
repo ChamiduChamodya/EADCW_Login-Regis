@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class userAccountDetails {
 
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn(name = "fk_email")
+    @JoinColumn(name = "fk_user")
     private userAccount LoginCredentials;
 
     @Id

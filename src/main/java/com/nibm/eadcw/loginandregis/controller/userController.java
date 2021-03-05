@@ -1,6 +1,7 @@
 package com.nibm.eadcw.loginandregis.controller;
 
 import com.nibm.eadcw.loginandregis.model.passConfirmation;
+import com.nibm.eadcw.loginandregis.model.passModificationComfirmation;
 import com.nibm.eadcw.loginandregis.model.userAccount;
 import com.nibm.eadcw.loginandregis.model.userAccountDetails;
 import com.nibm.eadcw.loginandregis.repository.userAccountDetailsRepo;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
+import javax.ws.rs.POST;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,11 +39,11 @@ public class userController {
 //        System.out.println("Email:"+account.getEmail());
 //        System.out.println("user:"+account.getUsername());
 //        System.out.println("pass:"+account.getPassword());
-        String passwordByEmail = accountRepo.getPasswordByEmail(account.getEmail().toString());
+        String passwordByUser = accountRepo.getPasswordByUsername(account.getUsername());
 //        System.out.println("****************************************");
 //        System.out.println("pass:"+account.getPassword());
 //        System.out.println("passfromdb:"+ passwordByEmail);
-            if (account.getPassword().toString().equals(passwordByEmail)){
+            if (account.getPassword().toString().equals(passwordByUser)){
                 passConfirmation confirmationOK = new passConfirmation("Confirmed");
                 return ResponseEntity.ok().body(confirmationOK);
             }else{
@@ -54,6 +56,19 @@ public class userController {
     @GetMapping("/userLogins")
     public List<userAccount> getAllAccountDetails() {
         return this.accountRepo.findAll();
+    }
+
+    //get tele no by user
+    @PostMapping(path = "userTele/")
+    public ResponseEntity<passModificationComfirmation> getTeleByuser(@RequestBody userAccount account){
+        String userTele = accountDetailsRepo.getTelefromUsername(account.getUsername());
+        if (!userTele.isEmpty()){
+            passModificationComfirmation comfirmationOK = new passModificationComfirmation(userTele);
+            return ResponseEntity.ok().body(comfirmationOK);
+        }else {
+            passModificationComfirmation confirmationDenied = new passModificationComfirmation("Denied");
+            return ResponseEntity.ok().body(confirmationDenied);
+        }
     }
 
     //set Account details

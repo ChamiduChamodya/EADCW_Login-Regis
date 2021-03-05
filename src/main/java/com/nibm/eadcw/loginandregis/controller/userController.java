@@ -1,9 +1,6 @@
 package com.nibm.eadcw.loginandregis.controller;
 
-import com.nibm.eadcw.loginandregis.model.passConfirmation;
-import com.nibm.eadcw.loginandregis.model.passModificationComfirmation;
-import com.nibm.eadcw.loginandregis.model.userAccount;
-import com.nibm.eadcw.loginandregis.model.userAccountDetails;
+import com.nibm.eadcw.loginandregis.model.*;
 import com.nibm.eadcw.loginandregis.repository.userAccountDetailsRepo;
 import com.nibm.eadcw.loginandregis.repository.userAccountRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,10 +91,11 @@ public class userController {
     }
 
     @PutMapping("/updatePass/{username}")
-    public RequestEntity<userAccount> setUserPass(@RequestParam("username") String user, @RequestBody userAccount account) {
-        System.out.println("Username"+ user);
-        System.out.println("pass"+ account.getPassword());
-        return null;
+    public RequestEntity<passModified> setUserPass(@RequestParam("username") String user, @RequestBody userAccount account) {
+//        System.out.println("Username"+ user);
+//        System.out.println("pass"+ account.getPassword());
+        accountRepo.updatePassword(user,account.getPassword());
+        return ResponseEntity.ok().body("Changed");
     }
 
 }

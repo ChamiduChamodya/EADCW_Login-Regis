@@ -94,13 +94,8 @@ public class userController {
     }
 
     @PutMapping("/updatePass/{username}")
-    public RequestEntity<userAccount> setUserPass() {
+    public RequestEntity<userAccount> setUserPass(@RequestParam("username") String user, @RequestBody userAccount account) {
         return null;
     }
 
-    // get user by id
-    @GetMapping("/users/{name}")
-    public RequestEntity<userAccountDetails> getUserByName() {
-        return null;
-    }
 }

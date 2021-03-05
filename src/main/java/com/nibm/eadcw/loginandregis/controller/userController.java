@@ -4,14 +4,11 @@ import com.nibm.eadcw.loginandregis.model.*;
 import com.nibm.eadcw.loginandregis.repository.userAccountDetailsRepo;
 import com.nibm.eadcw.loginandregis.repository.userAccountRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
-import javax.ws.rs.POST;
 import java.util.List;
-import java.util.Optional;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -91,11 +88,12 @@ public class userController {
     }
 
     @PutMapping("/updatePass/{username}")
-    public RequestEntity<passModified> setUserPass(@RequestParam("username") String user, @RequestBody userAccount account) {
+    public ResponseEntity<passModified> setUserPass(@RequestParam("username") String user, @RequestBody userAccount account) {
 //        System.out.println("Username"+ user);
 //        System.out.println("pass"+ account.getPassword());
         accountRepo.updatePassword(user,account.getPassword());
-        return ResponseEntity.ok().body("Changed");
+        passModified modified = new passModified("Changed");
+        return ResponseEntity.ok().body(modified);
     }
 
 }

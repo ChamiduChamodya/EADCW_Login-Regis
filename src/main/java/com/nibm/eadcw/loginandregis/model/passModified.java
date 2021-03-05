@@ -7,6 +7,10 @@ public class passModified {
         this.passModified = passModified;
     }
 
+    public void setPassModified(String passModified) {
+        this.passModified = passModified;
+    }
+
     public String getPassModified() {
         return passModified;
     }

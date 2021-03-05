@@ -95,6 +95,8 @@ public class userController {
 
     @PutMapping("/updatePass/{username}")
     public RequestEntity<userAccount> setUserPass(@RequestParam("username") String user, @RequestBody userAccount account) {
+        System.out.println("Username"+ user);
+        System.out.println("pass"+ account.getPassword());
         return null;
     }
 
